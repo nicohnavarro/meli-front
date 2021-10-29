@@ -1,0 +1,65 @@
+.item-detail-container{
+  max-width: 1024px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: white;
+}
+
+.item-detail-first-row{
+  display: flex;
+
+  .item-detail-img-container{
+    flex: 5;
+    margin-right: 10px;
+
+    img{
+      width: 100%;
+    }
+  }
+
+  .item-detail-info{
+    flex: 3;
+
+    .item-detail-condition-sold{
+      font-size: 12px;
+      color: #888888;
+    }
+
+    .item-detail-title{
+      font-size: 20px;
+      margin-bottom: 0;
+      margin-top: 10px;
+    }
+
+    .item-detail-price{
+      font-size: 32px;
+      font-weight: normal;
+      margin-top: 10px;
+    }
+
+    .item-detail-buy{
+      padding: 10px;
+      background-color: cornflowerblue;
+      color: white;
+      border-radius: 4px;
+      border: none;
+      width: 100%;
+      cursor: pointer;
+    }
+  }
+}
+
+@media(max-width: 480px){
+  .item-detail-first-row{
+    flex-direction: column;
+  }
+}
+
+.item-detail-description-title{
+  font-size: 20px;
+}
+
+.item-detail-description-text{
+  font-size: 14px;
+  color: #444;
+}

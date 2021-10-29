@@ -1,0 +1,22 @@
+@import '../../../scss/variables.scss';
+
+.breadcrumb-container{
+  padding-inline-start: 0;
+}
+
+.breadcrumb{
+  display: inline-block;
+  margin-right: 7px;
+  color: #aaaaaa;
+  font-size: $breadcrum;
+
+  i {
+    margin-left: 7px;
+    border: solid #cccccc;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+  }
+}

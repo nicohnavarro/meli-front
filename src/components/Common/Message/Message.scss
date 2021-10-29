@@ -1,0 +1,36 @@
+.message-container{
+  padding: 20px;
+  border-radius: 4px;
+  margin: 20px auto;
+  max-width: 50%;
+  color: white;
+  background-color: dodgerblue;
+
+  &.error{
+    background-color: red;
+  }
+
+  .message-icon{
+    display: inline-block;
+    position: relative;
+    top: 6px;
+    margin-right: 10px;
+    width: 24px;
+    height: 24px;
+    // background: no-repeat transparent url('../assets/danger.png');
+
+    &.error{
+      // background: no-repeat transparent url('../assets/cancel.png');
+    }
+  }
+
+  .message-title{
+    margin-top: 0;
+    font-size: 20px;
+  }
+
+  .message-text{
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+}

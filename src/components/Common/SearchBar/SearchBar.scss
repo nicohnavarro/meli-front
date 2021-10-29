@@ -1,0 +1,40 @@
+@import "../../../scss/variables.scss";
+
+.header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 60px;
+  background-color: $yellowColor;
+}
+
+form{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+  align-items: center;
+}
+
+#bar-logo-navbar{
+  margin-right: 14px;
+}
+
+button {
+  padding: 6px 10px;
+  border-radius: 0px 3px 3px 0px;
+  cursor: pointer;
+  border: none;
+}
+
+input {
+  width: 75%;
+  padding: 6px 10px;
+  font-size: $li-title;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
