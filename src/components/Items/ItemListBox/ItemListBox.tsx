@@ -3,7 +3,7 @@ import "./ItemListBox.scss";
 import ItemBox from "../ItemBox/ItemBox";
 import BreadCrumb from "../BreadCrumb/BreabCrumb";
 
-export default function ItemsListBox(props: any) {
+const ItemsListBox: React.FC<any> = (props: any) => {
   return (
     <div className={"items-list-container"}>
       <BreadCrumb categories={props.categories} />
@@ -12,4 +12,6 @@ export default function ItemsListBox(props: any) {
       ))}
     </div>
   );
-}
+};
+
+export default ItemsListBox;

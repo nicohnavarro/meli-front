@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./ItemDetails.scss";
 import { formatPrice } from "../../../helpers/formatCurrency";
-import Message from "../../Common/Message/Message";
 import Loader from "../../Common/Loader/Loader";
 import { Item } from "../../../interfaces/Item";
 import { RouteComponentProps } from "react-router";
@@ -19,7 +18,7 @@ const ItemDetail: React.FC<ItemDetailProps & RouteComponentProps> = (props) => {
   const { id } = props.match.params as ItemDetailParams;
 
   const [itemInfo, setItemInfo] = useState<Item | null>(null);
-  const [errorMsg, showErrorMsg] = useState({ error: false, text: "" });
+  const [error, setError] = useState({ error: false, text: "" });
 
   useEffect(() => {
     fetch(`http://localhost:4000/api/items/${id}`)
@@ -42,21 +41,19 @@ const ItemDetail: React.FC<ItemDetailProps & RouteComponentProps> = (props) => {
               text = "Ups! Algo salió mal. Probá nuevamente más tarde";
               break;
           }
-          showErrorMsg({ error: true, text: text });
+          setError({ error: true, text: text });
         } else {
         }
       })
-      .catch((error) => {
-        console.error(error);
-        showErrorMsg({
+      .catch((e) => {
+        setError({
           error: true,
           text: "Ups! Algo salió mal. Probá nuevamente más tarde",
         });
       });
   }, [id]);
 
-  return (
-    itemInfo ?(
+  return itemInfo ? (
     <div className={"item-detail-container"}>
       <div className={"item-detail-first-row"}>
         <div className={"item-detail-img-container"}>
@@ -87,7 +84,9 @@ const ItemDetail: React.FC<ItemDetailProps & RouteComponentProps> = (props) => {
         <p className={"item-detail-description-text"}>{itemInfo.description}</p>
       </div>
     </div>
-  ):(<Loader/>))
+  ) : (
+    <Loader />
+  );
 };
 
 export default ItemDetail;
