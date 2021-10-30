@@ -2,3 +2,19 @@
   background-color: #eeeeee;
   min-height: 100vh;
 }
+
+footer{
+  background: #333;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 12%);
+  padding: 6px;
+  position: fixed;
+  color: white;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border: 1px solid rgba(0,0,0,.12);
+  z-index: 2147483647;
+  font-family: Proxima Nova,-apple-system,Helvetica Neue,Helvetica,Roboto,Arial,sans-serif;
+}

@@ -15,23 +15,22 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<ItemError | null>(null);
 
+  
   const getResults = (query: string) => {
     setLoading(true);
     fetch(`http://localhost:4000/api/items?q=${query}`)
       .then((response) => response.json())
       .then((response) => {
         if (response.error) {
-          console.error(response);
           setLoading(false);
           setError({ error: response });
         } else {
           setLoading(false);
-          setResults(response);
+          setResults(response as ItemsList);
           history.push(`/items?search=${query}`);
         }
       })
       .catch((error) => {
-        console.error(error);
         setLoading(false);
         setError({ error: "Connection lost" });
       });
@@ -45,14 +44,7 @@ function App() {
       ) : (
         <Switch>
           <Route exact path="/items">
-            {!results ? (
-              <Message
-                error={true}
-                message={
-                  "Hubo un problema buscando ese producto. Probá nuevamente más tarde."
-                }
-              />
-            ) : results ? (
+            { results ? (
               results.items.length ? (
                 <ItemsListBox
                   categories={results.categories}
@@ -73,6 +65,9 @@ function App() {
           <Route path="/items/:id" component={ItemDetail} />
         </Switch>
       )}
+      {results && 
+      <footer>{`Made by ${results.author.name} ${results.author.lastname}`}</footer>
+      }
     </div>
   );
 }
