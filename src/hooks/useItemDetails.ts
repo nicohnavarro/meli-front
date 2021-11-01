@@ -1,23 +1,27 @@
 import { useEffect, useState } from "react";
+import { Error } from "../interfaces/Error";
 import { Item } from "../interfaces/Item";
 import { getItemDetails } from "../services/itemSvc";
 
-export function useItemDetails(id:string) : [boolean,Item | null,boolean]{
+export function useItemDetails(id: string): [boolean, Item | null, Error | null] {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
   const [itemDetails, setItemDetails] = useState<Item | null>(null);
 
   useEffect(() => {
-    try{
-      setLoading(true);
-      getItemDetails(id).then(item => {setItemDetails(item)
-      setLoading(false)
+
+    setLoading(true);
+    getItemDetails(id).then(response => {
+      if ((response as Item).author) {
+        setItemDetails(response as Item)
+        setLoading(false)
+      }
+      else {
+        setLoading(false)
+        setError(response as Error);
+      }
     })
-    }
-    catch(e){
-      setError(true);
-    }
   }, [id])
 
-  return [loading,itemDetails,error];
+  return [loading, itemDetails, error];
 }
