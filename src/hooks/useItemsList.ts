@@ -3,7 +3,13 @@ import { ItemsList } from './../interfaces/ItemList';
 import { useEffect, useState } from "react";
 import { getItemsList } from "../services/itemSvc";
 
-export function useItemsList(query: string, limit: number): [boolean, ItemsList | null, Error | null] {
+type useItemsListParams = {
+  query:string,
+  limit:number
+}
+
+export function useItemsList(params :useItemsListParams): [boolean, ItemsList | null, Error | null] {
+  const {query,limit} = params;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const [itemslist, setItemList] = useState<ItemsList | null>(null);
@@ -22,7 +28,7 @@ export function useItemsList(query: string, limit: number): [boolean, ItemsList 
         setError(response as Error);
       }
     })
-  }, [queryToUse])
+  }, [query,limit,queryToUse])
 
   return [loading, itemslist, error];
 }

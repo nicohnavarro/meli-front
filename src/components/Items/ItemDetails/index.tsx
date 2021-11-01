@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./styles.scss";
 import { formatPrice } from "../../../helpers/formatCurrency";
 import Loader from "../../Common/Loader";
@@ -19,7 +19,6 @@ type ItemDetailParams = {
 
 const ItemDetail: React.FC<ItemDetailProps & RouteComponentProps> = (props) => {
   const { id } = props.match.params as ItemDetailParams;
-  console.log(props);
   const [loading, itemDetails, error] = useItemDetails(id);
 
   return (
