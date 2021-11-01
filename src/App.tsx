@@ -1,73 +1,24 @@
-import React, { useState } from "react";
+import  { Suspense } from "react";
 import "./App.scss";
-import { Switch, Route, Redirect, useHistory } from "react-router-dom";
-import SearchBar from "./components/Common/SearchBar/SearchBar";
-import Loader from "./components/Common/Loader/Loader";
-import Message from "./components/Common/Message/Message";
-import ItemsListBox from "./components/Items/ItemListBox/ItemListBox";
-import { ItemsList } from "./interfaces/ItemList";
-import { ItemError } from "./interfaces/Item";
-import ItemDetail from "./components/Items/ItemDetails/ItemDetails";
+import { Switch, Route } from "react-router-dom";
+import SearchBar from "./components/Common/SearchBar";
+import SearchResults from "./pages/SearchResults";
+import Home from "./pages/Home";
+import ItemDetail from "./components/Items/ItemDetails";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
-  let history = useHistory();
-  const [results, setResults] = useState<ItemsList | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<ItemError | null>(null);
-
-  
-  const getResults = (query: string) => {
-    setLoading(true);
-    fetch(`http://localhost:4000/api/items?q=${query}`)
-      .then((response) => response.json())
-      .then((response) => {
-        if (response.error) {
-          setLoading(false);
-          setError({ error: response });
-        } else {
-          setLoading(false);
-          setResults(response as ItemsList);
-          history.push(`/items?search=${query}`);
-        }
-      })
-      .catch((error) => {
-        setLoading(false);
-        setError({ error: "Connection lost" });
-      });
-  };
-
   return (
     <div className="App">
-      <SearchBar onSubmit={(query: string) => getResults(query)} />
-      {loading ? (
-        <Loader />
-      ) : (
+      <Suspense fallback={null}>
+        <SearchBar/>
         <Switch>
-          <Route exact path="/items">
-            { results ? (
-              results.items.length ? (
-                <ItemsListBox
-                  categories={results.categories}
-                  items={results.items}
-                />
-              ) : (
-                <Message
-                  error={false}
-                  message={
-                    "No encontramos resultados con lo que ingresaste. Probá buscandolo con otras palabras!"
-                  }
-                />
-              )
-            ) : (
-              <Redirect to={"/"} />
-            )}
-          </Route>
-          <Route path="/items/:id" component={ItemDetail} />
+          <Route component={Home} exact path="/"/>
+          <Route component={SearchResults} exact path="/items" />
+          <Route path="/items/:id" component={ItemDetail}/>
+          <Route component={ErrorPage} path="/:rest*" />
         </Switch>
-      )}
-      {results && 
-      <footer>{`Made by ${results.author.name} ${results.author.lastname}`}</footer>
-      }
+      </Suspense>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import "./BreadCrumb.scss";
+import "./styles.scss";
 
 const BreadCrumb: React.FC<any> = (props: any) => {
   return (
